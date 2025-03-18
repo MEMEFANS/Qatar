@@ -5,7 +5,8 @@
       "src": "package.json",
       "use": "@vercel/node",
       "config": {
-        "buildCommand": "npm run vercel-build"
+        "buildCommand": "npm run vercel-build",
+        "outputDirectory": "build"
       }
     }
   ]
