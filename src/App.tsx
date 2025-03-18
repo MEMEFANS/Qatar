@@ -253,90 +253,69 @@ function App() {
             )}
             
             {/* Main content area */}
-            <main className={`app-main-content ${!isMobile && sidebarOpen ? 'with-sidebar' : 'full-width'}`}>
-              <div className="container mx-auto px-0 sm:px-4 py-4 sm:py-6">
-                {/* Background pattern for luxury feel */}
-                <div className="fixed inset-0 z-0 opacity-5 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJnb2xkIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zMCAzMGMwLTEzLjA0NiA2LjU0My0yMCAxNS0yMHYyYy03LjM2NSAwLTEzIDYuMjY5LTEzIDE4IDAgMTEuNzMxIDUuNjM1IDE4IDEzIDE4djJjLTguNDU3IDAgMTUtNi45NTQtMTUtMjB6bTAgMGMwIDEzLjA0Ni02LjU0MyAyMC0xNSAyMHYtMmM3LjM2NSAwIDEzLTYuMjY5IDEzLTE4IDAtMTEuNzMxLTUuNjM1LTE4LTEzLTE4di0yYzguNDU3IDAgMTUgNi45NTQgMTUgMjB6Ii8+PC9nPjwvc3ZnPg==')]"></div>
-                
-                {/* Main content area */}
-                <div className="space-y-4 sm:space-y-6 md:space-y-10 relative z-10">
-                  {/* Token info section */}
-                  <section id="token-info" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">Token Info</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
-                        <TokenInfo />
-                      </div>
+            <main className={`flex-1 transition-all duration-300 ease-in-out overflow-auto p-3 sm:p-4 md:p-6 ${sidebarOpen && !isMobile ? 'ml-64' : 'ml-0'}`}>
+              <div className="max-w-5xl mx-auto">
+                <div className="space-y-6 sm:space-y-8 md:space-y-10 py-2 sm:py-4">
+                  {/* Token Info Section */}
+                  <section id="token-info" className="scroll-section">
+                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Token Info</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-6">
+                      <TokenInfo />
                     </div>
                   </section>
                   
-                  {/* Token economics */}
-                  <section id="token-economics" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">Token Economics</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
-                        <TokenEconomicsDashboard />
-                      </div>
+                  {/* Token Economics Dashboard */}
+                  <section id="token-economics" className="scroll-section">
+                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Token Economics</h2>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6">
+                      <TokenEconomicsDashboard />
                     </div>
                   </section>
                   
-                  {/* Buy tokens */}
-                  <section id="buy-tokens" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">Buy</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
+                  {/* Investments Section */}
+                  <section id="investments" className="scroll-section">
+                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Investments</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-6">
+                      <InvestmentTools />
+                    </div>
+                  </section>
+                  
+                  {/* User Holdings Section */}
+                  <section id="user-holdings" className="scroll-section">
+                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Your Holdings</h2>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6">
+                      <UserHoldings />
+                    </div>
+                  </section>
+                  
+                  {/* Trading Section */}
+                  <section id="trading" className="scroll-section">
+                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Trading</h2>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                      <div className="order-1 lg:order-1">
                         <MintCard />
                       </div>
-                    </div>
-                  </section>
-                  
-                  {/* Sell tokens */}
-                  <section id="sell-tokens" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">Sell</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
+                      <div className="order-2 lg:order-2">
                         <SellCard />
                       </div>
                     </div>
                   </section>
                   
-                  {/* My holdings */}
-                  <section id="my-holdings" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">My Holdings</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
-                        <UserHoldings />
-                      </div>
-                    </div>
-                  </section>
-                  
-                  {/* Investment tools */}
-                  <section id="investment-tools" className="app-section fade-in">
-                    <h2 className="section-title text-amber-300 border-b border-amber-900 pb-2">Investment</h2>
-                    <div className="app-card bg-gradient-to-br from-gray-900 to-gray-800 border border-amber-900/30 shadow-lg shadow-amber-900/10">
-                      <div className="app-card-body">
-                        <InvestmentTools />
-                      </div>
-                    </div>
-                  </section>
+                  {/* Footer */}
+                  <footer className="mt-8 sm:mt-12 text-center text-sm text-amber-300/60 pb-4">
+                    <p>&copy; 2025 Qatar Token. All rights reserved.</p>
+                  </footer>
                 </div>
-
-                {/* Footer information area */}
-                <footer className="mt-8 sm:mt-12 text-center text-amber-400 pb-6 sm:pb-10 fade-in">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-amber-900"></div>
-                    </div>
-                    <div className="relative flex justify-center">
-                      <span className="bg-gray-900 px-3 sm:px-4 text-xs sm:text-sm">2025 Qatar</span>
-                    </div>
-                  </div>
-                  <div className="mt-3 sm:mt-4 flex justify-center space-x-2">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full"></div>
-                    <div className="w-2 h-2 bg-red-800 rounded-full"></div>
-                    <div className="w-2 h-2 bg-amber-600 rounded-full"></div>
-                  </div>
-                </footer>
               </div>
             </main>
           </div>
