@@ -48,6 +48,21 @@ const UserHoldings: React.FC = () => {
     watch: true, // Auto-watch for changes
   });
 
+  // Format token values with abbreviations for mobile display
+  const formatTokenValue = (value: bigint): string => {
+    if (!value) return '0';
+    const isMobile = window.innerWidth < 640;
+    const tokenValue = Number(formatEther(value));
+    
+    if (isMobile && tokenValue > 10000) {
+      return tokenValue >= 1000000 
+        ? (tokenValue / 1000000).toFixed(2) + 'M'
+        : (tokenValue / 1000).toFixed(2) + 'K';
+    }
+    
+    return tokenValue.toFixed(2);
+  };
+
   // Calculate holding value
   useEffect(() => {
     if (tokenBalance && currentPrice && 
@@ -99,17 +114,17 @@ const UserHoldings: React.FC = () => {
       
       {/* Current Holdings */}
       <div className="mb-4 border-b border-amber-900/20 pb-4">
-        <h3 className="text-md font-medium mb-2 text-amber-200">Current Holdings</h3>
+        <h3 className="text-sm font-medium mb-2 text-amber-200">Current Holdings</h3>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <div className="text-xl sm:text-2xl font-bold text-white">
+          <div className="text-lg sm:text-xl font-bold text-white truncate max-w-full">
             {tokenBalance && typeof tokenBalance === 'bigint' 
-              ? Number(formatEther(tokenBalance)).toFixed(2)
+              ? formatTokenValue(tokenBalance)
               : '0'} 
-            <span className="text-sm text-amber-300/70 ml-1">Qatar</span>
+            <span className="text-xs sm:text-sm text-amber-300/70 ml-1">Qatar</span>
           </div>
           {address && (
             <div className="bg-gradient-to-r from-amber-800 to-red-900 text-white text-xs py-1 px-2 rounded-md border border-amber-700/50">
-              {address.slice(0, 6)}_{address.slice(-4)}
+              {address.slice(0, 6)}...{address.slice(-4)}
             </div>
           )}
         </div>
@@ -117,11 +132,11 @@ const UserHoldings: React.FC = () => {
       
       {/* Holding Value */}
       <div>
-        <h3 className="text-md font-medium mb-2 text-amber-200">Holding Value</h3>
+        <h3 className="text-sm font-medium mb-2 text-amber-200">Holding Value</h3>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <div className="text-xl sm:text-2xl font-bold text-white">
+          <div className="text-lg sm:text-xl font-bold text-white truncate max-w-full">
             {Number(holdingValue || '0').toFixed(6)} 
-            <span className="text-sm text-amber-300/70 ml-1">BNB</span>
+            <span className="text-xs sm:text-sm text-amber-300/70 ml-1">BNB</span>
           </div>
           <div className="text-xs text-amber-300/70 mt-1 sm:mt-0">
             ≈ {(Number(holdingValue || '0') * 300).toFixed(2)} USD

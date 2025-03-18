@@ -79,6 +79,17 @@ const MintCard = () => {
     }
   }, [isMintConfirmed, refreshAll]);
 
+  // Format tokens with appropriate decimals or abbreviations for mobile
+  const formatTokens = (amount: number): string => {
+    const isMobile = window.innerWidth < 640;
+    if (isMobile && amount > 10000) {
+      return amount >= 1000000 
+        ? (amount / 1000000).toFixed(2) + 'M'
+        : (amount / 1000).toFixed(2) + 'K';
+    }
+    return amount.toFixed(2);
+  };
+
   // Calculate expected token amount
   const [expectedTokens, setExpectedTokens] = useState('0');
   
@@ -87,7 +98,7 @@ const MintCard = () => {
       // According to contract logic: tokensToMint = (msg.value * 10**18) / currentPrice
       const bnbAmountWei = parseEther(bnbAmount);
       const calculatedTokens = Number(formatEther(bnbAmountWei * BigInt(10 ** 18) / currentPrice));
-      setExpectedTokens(calculatedTokens.toFixed(2));
+      setExpectedTokens(formatTokens(calculatedTokens));
     } else {
       setExpectedTokens('0');
     }
@@ -121,24 +132,26 @@ const MintCard = () => {
           </div>
         )}
         
-        <div className="metrics-grid">
-          <div className="metric-card">
-            <span className="metric-label">Current Price</span>
-            <span className="metric-value">
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="bg-gray-800 p-3 rounded-lg border border-amber-900/20">
+            <span className="text-xs text-amber-300/80 block mb-1">Current Price</span>
+            <span className="text-sm sm:text-base font-semibold text-amber-300 truncate block">
               {currentPrice && typeof currentPrice === 'bigint' 
                 ? Number(formatEther(currentPrice)).toFixed(6) 
                 : '0.000158'} BNB
             </span>
           </div>
           
-          <div className="metric-card">
-            <span className="metric-label">Expected to Receive</span>
-            <span className="metric-value">{expectedTokens} Qatar</span>
+          <div className="bg-gray-800 p-3 rounded-lg border border-amber-900/20">
+            <span className="text-xs text-amber-300/80 block mb-1">Expected to Receive</span>
+            <span className="text-sm sm:text-base font-semibold text-amber-300 truncate block">
+              {expectedTokens} Qatar
+            </span>
           </div>
         </div>
         
         <div className="my-4">
-          <label className="block text-amber-300/80 mb-2">BNB Amount (0.03-1)</label>
+          <label className="block text-amber-300/80 mb-2 text-sm">BNB Amount (0.03-1)</label>
           <div className="relative">
             <input
               type="number"
@@ -151,10 +164,10 @@ const MintCard = () => {
               step="0.01"
               disabled={isMintLoading}
             />
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-amber-300">BNB</span>
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-amber-300 text-sm">BNB</span>
           </div>
           
-          <div className="mt-2 flex justify-between">
+          <div className="mt-2 grid grid-cols-4 gap-2">
             <button 
               onClick={() => setBnbAmount('0.03')} 
               className="px-2 py-1 text-xs bg-amber-800 hover:bg-amber-700 rounded text-amber-100 transition-colors border border-amber-700/50"
@@ -187,18 +200,18 @@ const MintCard = () => {
         </div>
         
         {statusMessage && (
-          <div className={`p-3 rounded-md mb-4 flex items-center space-x-2 ${
+          <div className={`p-3 rounded-md mb-4 flex items-center space-x-2 text-sm ${
             isMintSuccess ? 'bg-green-900/20 text-green-400 border border-green-800/30' : 
             isMintError ? 'bg-red-900/20 text-red-400 border border-red-800/30' : 'bg-amber-900/20 text-amber-300 border border-amber-800/30'
           }`}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d={isMintSuccess 
                 ? "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" 
                 : "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"} 
                 clipRule="evenodd" 
               />
             </svg>
-            <span>{statusMessage}</span>
+            <span className="truncate">{statusMessage}</span>
           </div>
         )}
         
