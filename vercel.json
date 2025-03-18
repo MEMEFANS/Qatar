@@ -1,5 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "build"
+  "buildCommand": "npm install --legacy-peer-deps && npm run build",
+  "outputDirectory": "build",
+  "env": {
+    "NPM_FLAGS": "--legacy-peer-deps"
+  }
 }
