@@ -85,8 +85,8 @@ export function useQatarContract() {
 
   // 格式化数据
   const formattedPrice = currentPrice ? formatEther(currentPrice as bigint) : '0';
-  const formattedMinted = totalMinted ? formatEther(totalMinted as bigint) : '0';
-  const formattedBurned = burnedTokens ? formatEther(burnedTokens as bigint) : '0';
+  const formattedMinted = totalMinted ? Number(formatEther(totalMinted as bigint)).toLocaleString() : '0';
+  const formattedBurned = burnedTokens ? Number(formatEther(burnedTokens as bigint)).toLocaleString() : '0';
 
   // 计算可用代币数量
   const availableToMint = totalMinted 
