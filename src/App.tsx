@@ -116,7 +116,7 @@ function App() {
   // Safely check window size after component mount
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth < 1024;
+      const mobile = window.innerWidth < 768; // 降低为768px以捕获更多移动设备
       setIsMobile(mobile);
       // 仅在非移动端下才默认打开侧边栏
       if (!mobile && !sidebarOpen) {
@@ -254,52 +254,52 @@ function App() {
             
             {/* Main content area */}
             <main className={`flex-1 transition-all duration-300 ease-in-out overflow-auto p-3 sm:p-4 md:p-6 ${sidebarOpen && !isMobile ? 'ml-64' : 'ml-0'}`}>
-              <div className="max-w-5xl mx-auto">
-                <div className="space-y-6 sm:space-y-8 md:space-y-10 py-2 sm:py-4">
+              <div className="max-w-md mx-auto px-3 sm:max-w-xl md:max-w-3xl">
+                <div className="space-y-4 sm:space-y-6 md:space-y-8 py-2 sm:py-4">
                   {/* Token Info Section */}
                   <section id="token-info" className="scroll-section">
-                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Token Info</h2>
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Token Info</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-6">
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
                       <TokenInfo />
                     </div>
                   </section>
                   
                   {/* Token Economics Dashboard */}
                   <section id="token-economics" className="scroll-section">
-                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Token Economics</h2>
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Token Economics</h2>
                     </div>
-                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6">
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
                       <TokenEconomicsDashboard />
                     </div>
                   </section>
                   
                   {/* Investments Section */}
                   <section id="investments" className="scroll-section">
-                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Investments</h2>
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Investments</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
                       <InvestmentTools />
                     </div>
                   </section>
                   
                   {/* User Holdings Section */}
                   <section id="user-holdings" className="scroll-section">
-                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Your Holdings</h2>
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Your Holdings</h2>
                     </div>
-                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6">
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
                       <UserHoldings />
                     </div>
                   </section>
                   
                   {/* Trading Section */}
                   <section id="trading" className="scroll-section">
-                    <div className="section-header mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-amber-300">Trading</h2>
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Trading</h2>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                       <div className="order-1 lg:order-1">

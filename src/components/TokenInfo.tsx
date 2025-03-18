@@ -27,12 +27,12 @@ export function TokenInfo() {
     if (!value) return '0';
     
     // 检查是否为移动设备 (简单检测窗口宽度)
-    const isMobile = window.innerWidth < 640;
+    const isMobile = window.innerWidth < 768;
     
     // 如果是数字格式的字符串，进行格式化
     if (!isNaN(Number(value.replace(/,/g, '')))) {
       const num = Number(value.replace(/,/g, ''));
-      if (isMobile && num > 10000) {
+      if (isMobile && num > 1000) {
         // 移动端对大数字使用K/M表示
         return num >= 1000000 
           ? (num / 1000000).toFixed(2) + 'M' 

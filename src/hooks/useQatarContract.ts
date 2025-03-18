@@ -88,6 +88,12 @@ export function useQatarContract() {
   const formattedMinted = totalMinted ? formatEther(totalMinted as bigint) : '0';
   const formattedBurned = burnedTokens ? formatEther(burnedTokens as bigint) : '0';
 
+  // 计算可用代币数量
+  const availableToMint = totalMinted 
+    ? Math.max(0, 1000000 - Number(formatEther(totalMinted as bigint)))
+    : 1000000;
+  const formattedAvailable = availableToMint.toString();
+
   // 提供刷新方法，可以在需要的时候手动调用
   const refreshAll = () => {
     refetchPrice();
@@ -102,6 +108,7 @@ export function useQatarContract() {
     formattedPrice,
     formattedMinted,
     formattedBurned,
+    formattedAvailable,
     handleMint,
     isMintLoading,
     isMintSuccess,
