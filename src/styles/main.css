@@ -119,9 +119,15 @@ body, #root {
     width: 85%; /* 稍微缩小宽度，更好的用户体验 */
     max-width: 300px;
     border-right: 1px solid rgba(245, 158, 11, 0.2);
+    z-index: 60; /* 确保侧边栏在覆盖层之上 */
+  }
+  
+  .app-sidebar.closed {
+    transform: translateX(-100%);
   }
   
   .app-sidebar.open {
+    transform: translateX(0);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
 }
@@ -623,20 +629,42 @@ body, #root {
 @media (max-width: 640px) {
   .mobile-overlay {
     position: fixed;
-    top: 0;
+    top: var(--header-height);
     left: 0;
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 40;
+    z-index: 55; /* 确保覆盖层在侧边栏下方但高于其他内容 */
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
   
   .mobile-overlay.active {
-    display: block;
+    opacity: 1;
+    pointer-events: auto;
   }
+}
+
+/* 移动端遮罩层 */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50; /* 低于侧边栏的z-index(60)，但高于其他内容 */
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-speed) ease;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* 修复页脚在移动端的显示 */

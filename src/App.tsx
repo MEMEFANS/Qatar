@@ -276,18 +276,28 @@ function App() {
                     </div>
                   </section>
                   
-                  {/* Investments Section */}
-                  <section id="investments" className="scroll-section">
+                  {/* Buy Section (MINT) */}
+                  <section id="buy-tokens" className="scroll-section">
                     <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Investments</h2>
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Buy Tokens</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                      <InvestmentTools />
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
+                      <MintCard />
+                    </div>
+                  </section>
+                  
+                  {/* Sell Section */}
+                  <section id="sell-tokens" className="scroll-section">
+                    <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Sell Tokens</h2>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
+                      <SellCard />
                     </div>
                   </section>
                   
                   {/* User Holdings Section */}
-                  <section id="user-holdings" className="scroll-section">
+                  <section id="my-holdings" className="scroll-section">
                     <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
                       <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Your Holdings</h2>
                     </div>
@@ -296,18 +306,13 @@ function App() {
                     </div>
                   </section>
                   
-                  {/* Trading Section */}
-                  <section id="trading" className="scroll-section">
+                  {/* Investment Tools Section */}
+                  <section id="investment-tools" className="scroll-section">
                     <div className="section-header mb-3 sm:mb-4 pb-2 border-b border-amber-900/30">
-                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Trading</h2>
+                      <h2 className="text-xl sm:text-2xl font-bold text-amber-300">Investment Tools</h2>
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                      <div className="order-1 lg:order-1">
-                        <MintCard />
-                      </div>
-                      <div className="order-2 lg:order-2">
-                        <SellCard />
-                      </div>
+                    <div className="grid grid-cols-1 gap-4 mb-4 sm:mb-6">
+                      <InvestmentTools />
                     </div>
                   </section>
                   
