@@ -31,6 +31,7 @@ const queryClient = new QueryClient();
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('token-info');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Detect scroll
   useEffect(() => {
@@ -125,9 +126,17 @@ function App() {
           {/* 顶部导航栏 - 中东土豪风格 */}
           <nav className={`sticky top-0 py-3 px-4 z-50 backdrop-blur-md bg-opacity-90 bg-gradient-to-r from-amber-900 to-amber-800 border-b-2 border-amber-500 ${isScrolled ? 'shadow-lg shadow-amber-900/30' : ''}`}>
             <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-xl font-bold text-amber-300 drop-shadow-md">Qatar</h1>
-                <p className="text-xs text-amber-200">Qatar Token on BSC Chain</p>
+              <div className="flex items-center">
+                <button 
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  className="mr-3 text-amber-300 hover:text-amber-100"
+                >
+                  <img src="/menu-icon.svg" alt="Menu" className="w-6 h-6" />
+                </button>
+                <div>
+                  <h1 className="text-xl font-bold text-amber-300 drop-shadow-md">Qatar</h1>
+                  <p className="text-xs text-amber-200">Qatar Token on BSC Chain</p>
+                </div>
               </div>
               <div className="text-right">
                 <w3m-button balance="show" />
@@ -135,25 +144,36 @@ function App() {
             </div>
           </nav>
             
-          {/* 移动端底部导航 - 中东土豪风格 */}
-          <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-amber-900 to-amber-800 border-t-2 border-amber-500 shadow-lg z-40">
-            <div className="flex justify-around py-2">
+          {/* 侧边栏导航 - 中东土豪风格 */}
+          <div className={`fixed top-16 left-0 bottom-0 w-64 bg-gradient-to-b from-amber-900 to-amber-800 border-r-2 border-amber-500 shadow-lg transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-40`}>
+            <div className="flex flex-col py-4 h-full">
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="flex flex-col items-center p-1"
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setIsSidebarOpen(false);
+                  }}
+                  className={`flex items-center py-3 px-4 ${activeSection === item.id ? 'bg-amber-800' : 'hover:bg-amber-800/50'}`}
                 >
-                  <span className={`text-xl mb-1 ${activeSection === item.id ? 'text-yellow-300' : 'text-amber-200'}`}>
+                  <span className={`text-xl mr-3 ${activeSection === item.id ? 'text-yellow-300' : 'text-amber-200'}`}>
                     {item.icon}
                   </span>
-                  <span className={`text-xs ${activeSection === item.id ? 'text-yellow-300 font-medium' : 'text-amber-200'}`}>
+                  <span className={`${activeSection === item.id ? 'text-yellow-300 font-medium' : 'text-amber-200'}`}>
                     {item.label}
                   </span>
                 </button>
               ))}
             </div>
           </div>
+          
+          {/* 添加遮罩层，点击时关闭侧边栏 */}
+          {isSidebarOpen && (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50 z-30"
+              onClick={() => setIsSidebarOpen(false)}
+            ></div>
+          )}
           
           {/* 内容区域 - 中东土豪风格 */}
           <main className="flex-1 overflow-auto p-4 pb-20 bg-pattern-qatar">

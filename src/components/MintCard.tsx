@@ -98,7 +98,7 @@ const MintCard = () => {
       // According to contract logic: tokensToMint = (msg.value * 10**18) / currentPrice
       const bnbAmountWei = parseEther(bnbAmount);
       const calculatedTokens = Number(formatEther(bnbAmountWei * BigInt(10 ** 18) / currentPrice));
-      setExpectedTokens(formatTokens(calculatedTokens));
+      setExpectedTokens(calculatedTokens.toFixed(2));
     } else {
       setExpectedTokens('0');
     }

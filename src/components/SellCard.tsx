@@ -146,7 +146,7 @@ export function SellCard() {
           </div>
           <div className="metric-card">
             <span className="metric-label">Your Balance</span>
-            <span className="metric-value">{userBalance && typeof userBalance === 'bigint' ? formatEther(userBalance) : '0'} Qatar</span>
+            <span className="metric-value">{userBalance && typeof userBalance === 'bigint' ? Number(formatEther(userBalance)).toFixed(2) : '0'} Qatar</span>
           </div>
         </div>
         
