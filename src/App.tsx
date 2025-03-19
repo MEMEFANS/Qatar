@@ -17,12 +17,12 @@ import './styles/main.css';
 
 // Define navigation items
 const navItems = [
-  { id: 'token-info', label: 'Token Info', icon: '📊' },
-  { id: 'token-economics', label: 'Token Economics', icon: '📈' },
-  { id: 'buy-tokens', label: 'Buy', icon: '💰' },
-  { id: 'sell-tokens', label: 'Sell', icon: '🔄' },
-  { id: 'my-holdings', label: 'My Holdings', icon: '👤' },
-  { id: 'investment-tools', label: 'Investment', icon: '🔧' },
+  { id: 'token-info', label: 'Token Info', icon: <img src="/icons/token-info.svg" alt="Token Info" className="w-6 h-6" /> },
+  { id: 'token-economics', label: 'Token Economics', icon: <img src="/icons/token-economics.svg" alt="Token Economics" className="w-6 h-6" /> },
+  { id: 'buy-tokens', label: 'Buy', icon: <img src="/icons/buy.svg" alt="Buy" className="w-6 h-6" /> },
+  { id: 'sell-tokens', label: 'Sell', icon: <img src="/icons/sell.svg" alt="Sell" className="w-6 h-6" /> },
+  { id: 'my-holdings', label: 'My Holdings', icon: <img src="/icons/my-holdings.svg" alt="My Holdings" className="w-6 h-6" /> },
+  { id: 'investment-tools', label: 'Investment', icon: <img src="/icons/investment.svg" alt="Investment" className="w-6 h-6" /> },
 ];
 
 // 创建一个QueryClient实例
@@ -156,7 +156,7 @@ function App() {
                   }}
                   className={`flex items-center py-3 px-4 ${activeSection === item.id ? 'bg-amber-800' : 'hover:bg-amber-800/50'}`}
                 >
-                  <span className={`text-xl mr-3 ${activeSection === item.id ? 'text-yellow-300' : 'text-amber-200'}`}>
+                  <span className={`mr-3 ${activeSection === item.id ? 'text-yellow-300' : 'text-amber-200'}`}>
                     {item.icon}
                   </span>
                   <span className={`${activeSection === item.id ? 'text-yellow-300 font-medium' : 'text-amber-200'}`}>
