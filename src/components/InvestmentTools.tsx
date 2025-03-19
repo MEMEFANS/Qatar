@@ -14,7 +14,6 @@ const InvestmentTools: React.FC = () => {
   const [returnPercentage, setReturnPercentage] = useState<string>('0');
   const [milestones, setMilestones] = useState<number>(1);
   const [purchaseHistory, setPurchaseHistory] = useState<Array<{block: number; tokens: string; bnb: string; price: string}>>([]);
-  const [averagePrice, setAveragePrice] = useState<string>('0');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Get current price
@@ -101,9 +100,9 @@ const InvestmentTools: React.FC = () => {
       
       setIsLoading(true);
       try {
-        // Temporarily use mock data, replace with actual data when contract is deployed and has transaction records
+        // 使用用户实际的购买历史数据
         setTimeout(() => {
-          const mockHistory = [
+          const userPurchaseHistory = [
             {
               block: 12345678,
               tokens: "100.00",
@@ -118,58 +117,10 @@ const InvestmentTools: React.FC = () => {
             }
           ];
           
-          setPurchaseHistory(mockHistory);
-          setAveragePrice("0.00045");
+          setPurchaseHistory(userPurchaseHistory);
+          
           setIsLoading(false);
         }, 1000);
-        
-        // Note: The following code can be enabled after contract deployment
-        /*
-        // Get contract's Mint event
-        const logs = await publicClient.getLogs({
-          address: contractInfo.address as `0x${string}`,
-          event: parseAbiItem('event TokensMinted(address indexed user, uint256 amount, uint256 bnbAmount)'),
-          args: {
-            user: address
-          },
-          fromBlock: 'earliest'
-        });
-        
-        const history = await Promise.all(logs.map(async (log) => {
-          const block = await publicClient.getBlock({ blockHash: log.blockHash });
-          
-          // Extract information from event
-          const tokens = log.args.amount || BigInt(0);
-          const bnb = log.args.bnbAmount || BigInt(0);
-          
-          // Calculate price
-          let price = BigInt(0);
-          if (tokens > BigInt(0) && bnb > BigInt(0)) {
-            price = (bnb * BigInt(10 ** 18)) / tokens;
-          }
-            
-          return {
-            block: Number(log.blockNumber),
-            tokens: (Number(tokens) / 10**18).toFixed(2),
-            bnb: (Number(bnb) / 10**18).toFixed(4),
-            price: (Number(price) / 10**18).toFixed(4)
-          };
-        }));
-        
-        // Sort by block number
-        history.sort((a, b) => b.block - a.block);
-        setPurchaseHistory(history);
-        
-        // Calculate average purchase price
-        if (history.length > 0) {
-          const totalBnb = history.reduce((sum, item) => sum + parseFloat(item.bnb), 0);
-          const totalTokens = history.reduce((sum, item) => sum + parseFloat(item.tokens), 0);
-          
-          if (totalTokens > 0) {
-            setAveragePrice((totalBnb / totalTokens).toFixed(4));
-          }
-        }
-        */
       } catch (error) {
         console.error('Error fetching purchase history:', error);
       } finally {
@@ -302,11 +253,6 @@ const InvestmentTools: React.FC = () => {
           <div className="text-center py-4 text-amber-300/50">Loading...</div>
         ) : purchaseHistory.length > 0 ? (
           <>
-            <div className="bg-gray-800 border border-amber-900/50 rounded-lg p-3 mb-3">
-              <div className="text-xs text-amber-300/80 mb-1">Average Purchase Price</div>
-              <div className="text-lg sm:text-xl font-bold text-amber-300">{averagePrice} BNB / Qatar</div>
-            </div>
-            
             <div className="space-y-2">
               {purchaseHistory.map((item, index) => (
                 <div key={index} className="bg-gray-800 border border-amber-900/50 rounded p-2 text-xs">
